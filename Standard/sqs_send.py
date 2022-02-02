@@ -1,11 +1,12 @@
 #!/usr/bin/python3
 
 import boto3
+import os
 
 # Create SQS client
 sqs = boto3.client('sqs', region_name='eu-west-1')
 
-queue_url = 'SQS_URL'
+queue_url = os.environ.get('SQS_URL')
 
 # Send message to SQS queue
 response = sqs.send_message(
@@ -14,20 +15,15 @@ response = sqs.send_message(
                     MessageAttributes={
                                 'Title': {
                                                 'DataType': 'String',
-                                                            'StringValue': 'The Whistler'
+                                                            'StringValue': 'The Standard Queue'
                                                                     },
                                         'Author': {
                                                         'DataType': 'String',
-                                                                    'StringValue': 'John Grisham'
+                                                                    'StringValue': 'Abuharis Salih'
                                                                             },
-                                                'WeeksOn': {
-                                                                'DataType': 'Number',
-                                                                            'StringValue': '6'
-                                                                                    }
                                                     },
                         MessageBody=(
-                                    'Information about current NY Times fiction bestseller for '
-                                            'week of 12/11/2016.'
+                                    'Hello from the Standard Queue'
                                                 )
                         )
 

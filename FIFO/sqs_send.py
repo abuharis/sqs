@@ -1,33 +1,31 @@
 #!/usr/bin/python3
 
 import boto3
+import os
 
 # Create SQS client
 sqs = boto3.client('sqs', region_name='eu-west-1')
 
-queue_url = ''
+queue_url = os.environ.get('SQS_URL_FIFO')
+
+print (queue_url)
 
 # Send message to SQS queue
 response = sqs.send_message(
             QueueUrl=queue_url,
-                MessageGroupId="1",
+                MessageGroupId="mygroup",
                     MessageAttributes={
                                 'Title': {
                                                 'DataType': 'String',
-                                                            'StringValue': 'The Whistler'
+                                                            'StringValue': 'SQS TEST'
                                                                     },
                                         'Author': {
                                                         'DataType': 'String',
-                                                                    'StringValue': 'John Grisham'
+                                                                    'StringValue': 'Abuharis Salih'
                                                                             },
-                                                'WeeksOn': {
-                                                                'DataType': 'Number',
-                                                                            'StringValue': '6'
-                                                                                    }
                                                     },
                         MessageBody=(
-                                    'Information about current NY Times fiction bestseller for '
-                                            'week of 12/11/2016.add'
+                                    'Test message from Abu'
                                                 )
                         )
 

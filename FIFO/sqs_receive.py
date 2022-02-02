@@ -1,11 +1,12 @@
 #!/usr/bin/python3
 
 import boto3
+import os
 
 # Create SQS client
 sqs = boto3.client('sqs', region_name='eu-west-1')
 
-queue_url = ''
+queue_url = os.environ.get('SQS_URL_FIFO')
 
 # Receive message from SQS queue
 response = sqs.receive_message(
